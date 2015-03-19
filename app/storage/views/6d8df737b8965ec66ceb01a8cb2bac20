@@ -1,0 +1,58 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php if(isset($supplier) && $supplier->count()): ?> <?php echo trans('text.edit_supplier'); ?> - <?php echo $supplier->supplier_name; ?> <?php else: ?> <?php echo trans('text.create_supplier'); ?> <?php endif; ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"><?php if(isset($supplier) && $supplier->count()): ?> <?php echo trans('text.edit_supplier'); ?> - <?php echo $supplier->supplier_name; ?> <?php else: ?> <?php echo trans('text.create_supplier'); ?> <?php endif; ?></h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('create_edit_supplier', (isset($supplier) && $supplier->count()) ? $supplier : false)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET--><!-- END EXAMPLE TABLE PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption"> <span class="caption-subject  bold uppercase"><?php if(isset($supplier) && $supplier->count()): ?><?php echo trans('text.edit_supplier_details'); ?> <?php else: ?> <?php echo trans('text.enter_supplier_details'); ?> <?php endif; ?></span> <span class="caption-helper"><?php echo trans('text.required_fields'); ?></span> </div>
+    </div>
+    <div class="portlet-body form"> 
+      <!-- BEGIN FORM--> 
+      <?php if(isset($supplier) && $supplier->count()): ?>
+      <?php echo Form::model($supplier, array('route' => array('suppliers.update', $supplier->supplier_id), 'method' => 'PUT', 'class' => 'form-horizontal')); ?>
+
+      <?php else: ?>
+      <?php echo Form::open(array('route' => 'suppliers.store', 'class' => 'form-horizontal')); ?>
+
+      <?php endif; ?>
+      <div class="form-body">
+        <div class="form-group <?php if($errors->has('supplier_name')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('supplier_name', trans('text.supplier_name') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('supplier_name', Input::old('supplier_name'), array('class' => 'form-control')); ?> <?php echo $errors->first('supplier_name', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('supplier_phone')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('supplier_phone', trans('text.supplier_phone'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('supplier_phone', Input::old('supplier_phone'), array('class' => 'form-control')); ?> <?php echo $errors->first('supplier_phone', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('supplier_email')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('supplier_email', trans('text.supplier_email') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::email('supplier_email', Input::old('supplier_email'), array('class' => 'form-control')); ?> <?php echo $errors->first('supplier_email', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('supplier_observations')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('supplier_observations', trans('text.supplier_observations'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::textarea('supplier_observations', Input::old('supplier_observations'), array('class' => 'form-control', 'size' => '40x3')); ?> <?php echo $errors->first('supplier_observations', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn green"><?php if(isset($supplier) && $supplier->count()): ?> <?php echo trans('text.edit_supplier'); ?> <?php else: ?> <?php echo trans('text.create_supplier'); ?> <?php endif; ?></button>
+            <?php echo link_to('suppliers', trans('text.cancel'), ['class' => 'btn default']); ?> </div>
+        </div>
+      </div>
+      <?php echo Form::close(); ?> 
+      <!-- END FORM--> 
+    </div>
+  </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

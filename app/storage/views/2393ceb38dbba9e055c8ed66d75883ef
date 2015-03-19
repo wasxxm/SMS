@@ -1,0 +1,80 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php echo trans('text.manage_permission_sets'); ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"> <?php echo trans('text.permission_sets'); ?> <small><?php echo trans('text.manage_permission_sets'); ?></small> </h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('permission_sets', $permission_sets)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET-->
+  <div class="portlet box grey-cascade">
+    <div class="portlet-title">
+      <div class="caption"><?php echo trans('text.permission_sets'); ?> </div>
+      <div class="tools"> <a href="javascript:;" class="collapse"> </div>
+    </div>
+    <div class="portlet-body">
+      <div class="table-toolbar">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="btn-group"> <?php if(check_permission('create_permission_set')): ?><a id="sample_editable_1_new" class="btn green" href="<?php echo url('permissions/create'); ?>"> <?php echo trans('text.add_permission_set'); ?> <i class="fa fa-plus"></i> </a><?php else: ?> <a href=""></a> <?php endif; ?> </div>
+          </div>
+          <div class="col-md-6">
+            <div class="btn-group pull-right">
+              <button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo trans('text.tools'); ?> <i class="fa fa-angle-down"></i> </button>
+              <ul class="dropdown-menu pull-right">
+                <li> <a href="#"> <?php echo trans('text.export_excel'); ?> </a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php if($permission_sets->count()): ?>
+      <table class="table table-striped table-bordered table-hover" id="users">
+        <thead>
+          <tr>
+            <th width="100"> <?php echo SortableTrait::link_to_sorting_action('permission_set_id', trans('text.id')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('permission_set_name', trans('text.name')); ?> </th>
+            <th> <?php echo trans('text.permissions'); ?> </th>
+            <th> <?php echo trans('text.departments'); ?> </th>
+            <th> <?php echo trans('text.users'); ?> </th>
+            <?php if(check_permission('edit_permission_set')): ?>
+            <th> <?php echo trans('text.edit'); ?> </th>
+            <?php endif; ?>
+             <?php if(check_permission('delete_permission_set')): ?>
+            <th> <?php echo trans('text.delete'); ?> </th>
+            <?php endif; ?> </tr>
+        </thead>
+        <tbody>
+        
+        <?php foreach($permission_sets as $permission_set): ?>
+        <tr class="odd gradeX">
+          <td> <?php echo $permission_set->permission_set_id; ?> </td>
+          <td> <?php echo link_to("permissions/{$permission_set->permission_set_id}", $permission_set->permission_set_name); ?> </td>
+          <td> <?php echo Permission::get_str($permission_set->permission_ids); ?> </td>
+          <td> <?php echo $permission_set->departments_count; ?> </td>
+          <td> <?php echo $permission_set->users_count; ?> </td>
+          <?php if(check_permission('edit_permission_set')): ?>
+          <td> <?php echo link_to("permissions/{$permission_set->permission_set_id}/edit", trans('text.edit')); ?> </td>
+          <?php endif; ?>
+           <?php if(check_permission('delete_permission_set')): ?>
+          <td> <?php echo link_to("permissions/{$permission_set->permission_set_id}/delete", trans('text.delete')); ?> </td>
+          <?php endif; ?>
+           </tr>
+        <?php endforeach; ?>
+          </tbody>
+        
+      </table>
+      <?php echo $permission_sets->appends(Request::except('page'))->links(); ?>
+
+      <?php else: ?>
+      <p><?php echo trans('text.no_permission_set_added'); ?></p>
+      <?php endif; ?> </div>
+  </div>
+  <!-- END EXAMPLE TABLE PORTLET--> 
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

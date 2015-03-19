@@ -27,9 +27,15 @@
 <div class="portlet gren">
   <div class="portlet-title">
     <div class="caption">{{ trans('text.user') }} - {{$user->user_fullname}} </div>
-    <div class="actions"> <a href='{{ url("companies/$user->user_id/edit") }}' class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> {{ trans('text.edit_user') }} </a> <a href='{{ url("users/{$user->user_id}/update_status") }}'  class="btn {{ ($user->user_status) ? 'red' : 'green' }} btn-sm"> {{ ($user->user_status) ? trans('text.disable'):trans('text.activate') }}</a> 
+    <div class="actions"> @if (check_permission('edit_user')) <a href='{{ url("users/$user->user_id/edit") }}' class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> {{ trans('text.edit_user') }} </a> @endif
     
-    </div>
+     @if (check_permission('edit_profile') && !check_permission('edit_user') && $user->user_id == Auth::id()) <a href='{{ url("users/$user->user_id/edit") }}' class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> {{ trans('text.edit_user') }} </a> @endif
+    
+    @if (check_permission('manage_user_departments')) <a href='{{ url("users/$user->user_id/departments") }}' class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> {{ trans('text.manage_user_departments') }} </a> @endif
+    
+    @if (check_permission('manage_user_permissions')) <a href='{{ url("users/$user->user_id/permissions") }}' class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> {{ trans('text.manage_user_permissions') }} </a> @endif
+    
+     @if (check_permission('disable_user'))<a href='{{ url("users/{$user->user_id}/update_status") }}'  class="btn {{ ($user->user_status) ? 'red' : 'green' }} btn-sm"> {{ ($user->user_status) ? trans('text.disable'):trans('text.activate') }}</a>@endif </div>
   </div>
   <div class="portlet-body">
     <table class="table table-striped table-bordered table-hover" id="view-user">
@@ -43,12 +49,28 @@
           <td width="330"><strong>{{$user->user_fullname}}</strong></td>
         </tr>
         <tr>
-          <td>{{ trans('text.user_company_name') }}</td>
-          <td><strong>{{ ($company = $user->company) ? link_to("companies/$company->company_id", $company->company_name,  ['target' => '_blank']) : '' }}</strong></td>
+          <td width="106">{{ trans('text.user_departments') }}</td>
+          <td width="330"><?php $deps = $user->departments; ?>
+            @if ($deps && $deps->count())
+            <ol>
+              @foreach ($deps as $dep)
+              <li>
+                <strong>{{link_to("departments/$dep->department_id" ,$dep->department_name, ['target' => '_blank'])}}</strong>
+              </li>
+              @endforeach
+            </ol>
+            @else
+            <p>{{ trans('text.no_department_assigned') }}</p>
+            @endif </td>
         </tr>
         <tr>
+          <td>{{ trans('text.user_profile_pic') }}</td>
+          <td>@if($user->user_profile_pic_uri) <img src="{{url('uploads/profiles/' . $user->user_profile_pic_uri)}}"/> @endif</td>
+        </tr>
+        <tr>
+        <tr>
           <td>{{ trans('text.user_email') }}</td>
-          <td><strong>{{$user->user_email}}</strong></td>
+          <td><strong>{{$user->email}}</strong></td>
         </tr>
         <tr>
           <td>{{ trans('text.user_phone') }}</td>

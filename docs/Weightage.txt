@@ -1,0 +1,34 @@
+plus i made my manager use 25% for the modules you already done
+[1:00:06 AM] Lucas Scarpi: instead of 20%
+[1:00:10 AM] Lucas Scarpi:  -Company Module
+-Users Module
+-Departments Module
+-Purchases Module
+-Suppliers Module
+-Permissions Module
+============== 25%
+
+
+-Payables Module = 5%
+
+-Inventory Module = 12%
+
+-Sales Module = 12%
+
+-Services Module = 13%
+
+-Clients Module = 7%
+
+-Receivables Module = 5%
+
+-Cash and Bank Module = 6%
+
+-Company Admin Module = 5%
+
+-ERP Admin Module = 5%
+
+-User Plans Module = 5%
+[1:00:17 AM] Lucas Scarpi: we will create the milestones
+[1:00:20 AM] Lucas Scarpi: dont worry
+[1:00:29 AM] Lucas Scarpi: but i will return on friday 2
+[1:00:33 AM] Lucas Scarpi: happy new year!

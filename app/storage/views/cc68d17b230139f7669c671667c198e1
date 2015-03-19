@@ -1,0 +1,84 @@
+<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+  <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+  <li class="sidebar-toggler-wrapper"> 
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="sidebar-toggler"> </div>
+    <!-- END SIDEBAR TOGGLER BUTTON --> 
+  </li>
+  <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+  <li class="sidebar-search-wrapper"> 
+    <!-- BEGIN RESPONSIVE QUICK SEARCH FORM --> 
+    <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box --> 
+    <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+    <form class="sidebar-search " action="#" method="POST">
+      <a href="javascript:;" class="remove"> <i class="icon-close"></i> </a>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search...">
+        <span class="input-group-btn"> <a href="javascript:;" class="btn submit"><i class="fa fa-search"></i></a> </span> </div>
+    </form>
+    <!-- END RESPONSIVE QUICK SEARCH FORM --> 
+  </li>
+  <li class="<?php echo HTML::menu_active('/'); ?>"> <a href="<?php echo url('/'); ?>"> <span class="title"><?php echo trans('text.dashboard'); ?></span> <span class="selected"></span> </a> </li>
+  <?php if(check_permission('view_company')): ?>
+  <li class="<?php echo HTML::menu_active('company'); ?>"> <a href="<?php echo url('company'); ?>"> <span class="title"><?php echo trans('text.company'); ?></span> <span class="arrow <?php echo HTML::menu_active('company'); ?>"></span> </a>
+    <ul class="sub-menu">
+      <li class="<?php echo HTML::menu_active('company'); ?>"> <a href="<?php echo url('company'); ?>"> <span class="title"><?php echo trans('text.manage_company'); ?></span> </a></li>
+    </ul>
+  </li>
+  <?php endif; ?>
+  
+  <?php if(check_permission('view_user')): ?>
+  <li class="<?php echo HTML::menu_active('users'); ?>"> <a href="<?php echo url('users'); ?>"> <span class="title"><?php echo trans('text.users'); ?></span> <span class="arrow <?php echo HTML::menu_active('users'); ?>"></span> </a>
+    <ul class="sub-menu">
+      <li class="<?php echo HTML::menu_active('users', true); ?>"> <a href="<?php echo url('users'); ?>"> <span class="title"><?php echo trans('text.manage_users'); ?></span> </a></li>
+      <?php if(check_permission('create_user')): ?>
+      <li class="<?php echo HTML::menu_active('users/create'); ?>"> <a href="<?php echo url('users/create'); ?>"> <span class="title"><?php echo trans('text.create_user'); ?></span> </a></li>
+      <?php endif; ?>
+    </ul>
+  </li>
+  <?php endif; ?>
+  
+  <?php if(check_permission('view_department')): ?>
+  <li class="<?php echo HTML::menu_active('departments'); ?>"> <a href="<?php echo url('departments'); ?>"> <span class="title"><?php echo trans('text.departments'); ?></span> <span class="arrow <?php echo HTML::menu_active('departments'); ?>"></span> </a>
+    <ul class="sub-menu">
+      <li class="<?php echo HTML::menu_active('departments', true); ?>"> <a href="<?php echo url('departments'); ?>"> <span class="title"><?php echo trans('text.manage_departments'); ?></span> </a></li>
+      <?php if(check_permission('create_department')): ?>
+      <li class="<?php echo HTML::menu_active('departments/create'); ?>"> <a href="<?php echo url('departments/create'); ?>"> <span class="title"><?php echo trans('text.create_department'); ?></span> </a></li>
+      <?php endif; ?>
+    </ul>
+  </li>
+  <?php endif; ?>
+  
+  <?php if(check_permission('view_permission_set')): ?>
+  <li class="<?php echo HTML::menu_active('permissions'); ?>"> <a href="<?php echo url('permissions'); ?>"> <span class="title"><?php echo trans('text.permissions'); ?></span> <span class="arrow <?php echo HTML::menu_active('permissions'); ?>"></span> </a>
+    <ul class="sub-menu">
+      <li class="<?php echo HTML::menu_active('permissions', true); ?>"> <a href="<?php echo url('permissions'); ?>"> <span class="title"><?php echo trans('text.manage_permission_sets'); ?></span> </a></li>
+      <?php if(check_permission('create_permission_set')): ?>
+      <li class="<?php echo HTML::menu_active('permissions/create'); ?>"> <a href="<?php echo url('permissions/create'); ?>"> <span class="title"><?php echo trans('text.create_permission'); ?></span> </a></li>
+      <?php endif; ?>
+    </ul>
+  </li>
+  <?php endif; ?>
+  
+  <?php if(check_permission('view_purchase_request')): ?>
+  <li class="<?php echo HTML::menu_active('purchase_requests'); ?>"> <a href="<?php echo url('purchase_requests'); ?>"> <span class="title"><?php echo trans('text.purchase_requests'); ?></span> <span class="arrow <?php echo HTML::menu_active('purchase_requests'); ?>"></span> </a>
+    <ul class="sub-menu">
+      <li class="<?php echo HTML::menu_active('purchase_requests', true); ?>"> <a href="<?php echo url('purchase_requests'); ?>"> <span class="title"><?php echo trans('text.view_purchase_request'); ?></span> </a></li>
+      <?php if(check_permission('create_purchase_request')): ?>
+      <li class="<?php echo HTML::menu_active('purchase_requests/create'); ?>"> <a href="<?php echo url('purchase_requests/create'); ?>"> <span class="title"><?php echo trans('text.create_purchase_request'); ?></span> </a></li>
+      <?php endif; ?>
+    </ul>
+  </li>
+  <?php endif; ?>
+  
+  <?php if(check_permission('view_supplier')): ?>
+  <li class="<?php echo HTML::menu_active('suppliers'); ?>"> <a href="<?php echo url('suppliers'); ?>"> <span class="title"><?php echo trans('text.suppliers'); ?></span> <span class="arrow <?php echo HTML::menu_active('suppliers'); ?>"></span> </a>
+    <ul class="sub-menu">
+      <li class="<?php echo HTML::menu_active('suppliers', true); ?>"> <a href="<?php echo url('suppliers'); ?>"> <span class="title"><?php echo trans('text.view_suppliers'); ?></span> </a></li>
+      <?php if(check_permission('create_supplier')): ?>
+      <li class="<?php echo HTML::menu_active('suppliers/create'); ?>"> <a href="<?php echo url('suppliers/create'); ?>"> <span class="title"><?php echo trans('text.create_supplier'); ?></span> </a></li>
+      <?php endif; ?>
+    </ul>
+  </li>
+  <?php endif; ?>
+</ul>

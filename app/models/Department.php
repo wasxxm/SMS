@@ -13,19 +13,11 @@ class Department extends Eloquent implements UserInterface, RemindableInterface 
 	
 	protected $primaryKey = "department_id";
 	
-	public static $rules = array();
+    public static $rules = array();
 	
 	public $errors;
 	
 	protected $fillable = array('department_name', 'department_desc');
-	
-	public function __construct()
-	{
-		static::$rules = array(
-		   'department_name' => 'required|between:3,100',
-		   'department_desc' => 'between:10,1000',
-		);
-	}
 
 	/**
 	 * The database table used by the model.
@@ -39,10 +31,29 @@ class Department extends Eloquent implements UserInterface, RemindableInterface 
 	 *
 	 * @var array
 	 */
-	//protected $hidden = array();
+	protected $hidden = array('');
 	
-	public function is_valid()
+	public function __construct()
+	{
+		static::$rules = array(
+		   'department_desc' => 'between:10,1000',
+	   );
+	}
+	
+	public function studyprograms()
+    {
+        return $this->hasMany('StudyProgram', 'study_program_id');
+    }
+	
+    public function batches()
+    {
+        return $this->hasMany('Batch', 'batch_id');
+    }
+	
+    public function is_valid()
 	{  	   
+	   Static::$rules['department_name'] = 'required|between:3,100|unique:departments,department_name,'.$this->department_id.',department_id';
+	   
 	   $validation = Validator::make($this->attributes, static::$rules);
 	   
 	   if ($validation->passes()) return true;
@@ -51,25 +62,6 @@ class Department extends Eloquent implements UserInterface, RemindableInterface 
 	   
 	   return false;
 		   	
-	}
-	
-	public static function get_col($col_name)
-	{
-	   $rows = Department::get(array($col_name))->toArray();
-	   
-	   $return_rows = array();
-	   
-	   if ($rows && count($rows))
-	   {
-		   foreach($rows as $row)
-		   {
-			   $return_rows[] = $row[$col_name];   
-		   }
-		   
-		   return $return_rows;
-	   }
-	   
-	   return false;	
 	}
 
 }

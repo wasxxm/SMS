@@ -1,0 +1,9 @@
+<?php $__env->startSection('the_title'); ?>
+<title>SMS - Semester Management System</title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<h1><?php echo link_to("departments", 'Manage Departments'); ?></h1>
+<h1><?php echo link_to("users", 'Manage Users'); ?></h1>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

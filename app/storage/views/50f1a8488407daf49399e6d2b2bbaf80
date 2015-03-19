@@ -1,0 +1,121 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php if(isset($company)): ?> <?php echo trans('text.edit_company'); ?> - <?php echo $company->company_name; ?> <?php else: ?> <?php echo trans('text.create_company'); ?> <?php endif; ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"><?php if(isset($company)): ?> <?php echo trans('text.edit_company'); ?> - <?php echo $company->company_name; ?> <?php else: ?> <?php echo trans('text.create_company'); ?> <?php endif; ?></h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('create_edit_company', (isset($company)) ? $company : false)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET--><!-- END EXAMPLE TABLE PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption"> <span class="caption-subject  bold uppercase"><?php if(isset($company)): ?><?php echo trans('text.edit_company_details'); ?> <?php else: ?> <?php echo trans('text.enter_company_details'); ?> <?php endif; ?></span> <span class="caption-helper"><?php echo trans('text.required_fields'); ?></span> </div>
+    </div>
+    <div class="portlet-body form"> 
+      <!-- BEGIN FORM--> 
+      <?php if(isset($company)): ?>
+      <?php echo Form::model($company, array('route' => array('company.update', $company->company_id), 'files' => true, 'method' => 'PUT', 'class' => 'form-horizontal')); ?>
+
+      <?php else: ?>
+      <?php echo Form::open(array('route' => 'company.store', 'files' => true, 'class' => 'form-horizontal')); ?>
+
+      <?php endif; ?>
+      <div class="form-body">
+        <div class="form-group <?php if($errors->has('company_name')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_name', trans('text.company_name').'<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_name', Input::old('company_name'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_name', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_reg_no')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_reg_no', trans('text.company_reg_no') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_reg_no', Input::old('company_reg_no'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_reg_no', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_country')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_country', trans('text.company_country'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::select('company_country', array_combine(DB::table('countries')->lists('name'), DB::table('countries')->lists('name')), Input::old('company_country'), array('class' => 'form-control select2me')); ?> <?php echo $errors->first('company_country', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_city')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_city', trans('text.company_city'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_city', Input::old('company_city'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_city', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_state')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_state', trans('text.company_state'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_state', Input::old('company_state'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_state', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_address')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_address', trans('text.company_address'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::textarea('company_address', Input::old('company_address'), ['size' => '40x3', 'class' => 'form-control']); ?> <?php echo $errors->first('company_address', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_phone')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_phone', trans('text.company_phone'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_phone', Input::old('company_phone'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_phone', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_website')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_website', trans('text.company_website'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_website', Input::old('company_website'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_website', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_email')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_email', trans('text.company_email'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_email', Input::old('company_email'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_email', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_ntn')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_ntn', trans('text.company_ntn'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_ntn', Input::old('company_ntn'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_ntn', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_vat')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_vat', trans('text.company_vat'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_vat', Input::old('company_vat'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_vat', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_currency_code')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_currency_code', trans('text.company_currency_code'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_currency_code', Input::old('company_currency_code', 'USD'), array('class' => 'form-control')); ?> <?php echo $errors->first('company_currency_code', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('company_users_limit')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_users_limit', trans('text.company_users_limit'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('company_users_limit', Input::old('company_users_limit', 10), array('class' => 'form-control')); ?> <?php echo $errors->first('company_users_limit', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        
+        <div class="form-group <?php if($errors->has('company_contacts')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_contacts', trans('text.company_contacts'), array('class' => 'col-md-3 control-label')); ?>
+
+          <?php $company_contacts_old = ''; ?>
+           <?php if(isset($company) && $company_contacts = Company::get_contacts($company->company_id)): ?>
+          <?php $company_contact_counter = 1; ?>
+          <?php foreach($company_contacts as $company_contact): ?>
+             <?php $company_contacts_old .= $company_contact['name'] . ", " .  $company_contact['title'] . ", " .  $company_contact['email']  ?>
+             <?php if($company_contact_counter != count($company_contacts)): ?>
+             <?php $company_contacts_old .= "\n"; ?>
+             <?php endif; ?>
+             <?php $company_contact_counter ++; ?>
+          <?php endforeach; ?>
+          <?php endif; ?>
+          <div class="col-md-4"> <?php echo Form::textarea('company_contacts', Input::old('company_contacts', $company_contacts_old), ['size' => '40x5', 'class' => 'form-control']); ?> <p class="help-block"><?php echo trans('text.company_contacts_help'); ?></p> <?php echo $errors->first('company_contacts', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        
+        <div class="form-group last <?php if($errors->has('company_logo_uri')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('company_logo_uri', trans('text.company_logo'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::file('company_logo_uri'); ?> <?php echo $errors->first('company_logo_uri', '<span class="help-block help-block-error">:message</span>'); ?>
+
+            <p class="help-block"><?php echo trans('text.logo_type_req'); ?><br>
+              <?php echo trans('text.image_dim_reqs'); ?> <?php echo Setting::get('company_logo_width'); ?>px <?php echo trans('text.by'); ?> <?php echo Setting::get('company_logo_height'); ?>px</p>
+            <?php if(isset($company) && $company->company_logo_uri): ?>
+            <p><img src="<?php echo url('uploads/companies/' . $company->company_logo_uri); ?>"/></p>
+            <?php endif; ?> </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn green"><?php if(isset($company)): ?> <?php echo trans('text.edit_company'); ?> <?php else: ?> <?php echo trans('text.create_company'); ?> <?php endif; ?></button>
+            <?php echo link_to('company', trans('text.cancel'), ['class' => 'btn default']); ?> </div>
+        </div>
+      </div>
+      <?php echo Form::close(); ?> 
+      <!-- END FORM--> 
+    </div>
+  </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,43 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|          Human Resources				|
+|										|
+|***************************************|
+
+Briefing: 
+
+
+    This module will manage all employees and their payrolls.
+    
+    
+Employees:
+    
+    They are not operators in the system.
+    
+    
+    Users can create, list, update employees but never delete them.
+    
+    
+    Employees must have:
+        
+        * Name
+        * Salary
+        * Photo
+        * Working or not (maybe already fired)
+        * Registration number
+        * Number of children
+        * Relationship status (single, married, divorced etc)
+        * Diseases
+        * Etc
+
+
+
+
+
+
+Payrolls:
+    
+    Users can set the system to generate payrolls in a certain period.
+    
+    Generated values will affect directly the finance module.

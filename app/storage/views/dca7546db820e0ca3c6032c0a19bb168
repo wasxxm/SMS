@@ -1,0 +1,29 @@
+<?php $__env->startSection('the_head'); ?>
+<link href="<?php echo URL::asset('assets/admin/pages/css/login.css'); ?>" rel="stylesheet" type="text/css"/>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('the_title'); ?>
+<title><?php echo trans('text.forgot_pass'); ?></title>
+<?php $__env->stopSection(); ?> 
+
+<?php $__env->startSection('content'); ?> 
+<!-- BEGIN FORGOT PASS FORM --> 
+<form action="<?php echo action('RemindersController@postRemind'); ?>" method="POST" class="forget-form show">
+<h3 class="form-title"><?php echo trans('text.forgot_pass'); ?>?</h3>
+<p> <?php echo trans('text.enter_email_reset'); ?> </p>
+<div class="form-group"> 
+  <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that--> 
+  <?php echo Form::label_html('user_email', trans('text.user_email'), array('class' => 'control-label visible-ie8 visible-ie9')); ?>
+
+  <div class="input-icon"> <i class="fa fa-envelope"></i> <?php echo Form::email('email', Input::old('email'), array('class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => trans('text.email'))); ?> </div>
+</div>
+<div class="form-actions">
+  <button type="submit" class="btn blue pull-right"> <?php echo trans('text.submit'); ?> <i class="m-icon-swapright m-icon-white"></i> </button>
+</div>
+<div class="forget-password">
+  <p> <?php echo Lang::get('text.go_back_login', ['login' => url('login')]); ?> </p>
+</div>
+<?php echo Form::close(); ?>
+
+<!-- END FORGOT PASS FORM --> 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.box', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

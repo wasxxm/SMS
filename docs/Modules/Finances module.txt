@@ -1,0 +1,49 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|             Finances      			|
+|										|
+|***************************************|
+
+
+Briefing: 
+    This is the system's main module. All values will pass through here.
+
+
+Bank Accounts:
+    
+    Users can create, update, list and delete bank accounts.
+    
+    Bank account page must have:
+        
+        * Account name
+        * Bank name
+        * Account number
+        * Balance (maybe with estimates)
+        * Recently money spent
+        * Recently money received
+
+
+Balance:
+    
+    Users may consult balance sheets within the specified period
+    
+    Users can use filters such as:
+        
+        * Only sales
+        * Only services
+        * Only Contracts
+        * Only purchases
+        * etc
+
+
+Incomes/expenses:
+    
+    Users can create, list, edit, delete new incomes with date, value, client or supplier etc.
+    
+    Sales, services, contracts will generate incomes automatically.
+    
+    
+    Users can also create, list, edit, and delete new expenses with date, value, client or supplier etc.
+    
+    Purchase Orders will generate expenses automatically.

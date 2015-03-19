@@ -1,0 +1,27 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|          	   Invoices					|
+|										|
+|***************************************|
+
+
+Briefing: 
+
+    This module will generate all invoices and integrate with bank accounts and payment methods such as paypal etc.
+	
+	
+	*** Note ***
+	
+	We are not sure if you guys can create this module. It seems to follow many brazilian rules in terms of creating invoices. If you can, let us know.
+	
+	
+	
+	
+Invoices:
+    
+    After creating a sale, service, contract the system will create the necessary invoices.
+    
+    The user can choose to send the invoice by email to the client.
+    
+    Users can list and see the invoices, but never edit or delete them.

@@ -1,0 +1,50 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php if(isset($department) && $department->count()): ?> <?php echo trans('text.edit_department'); ?> - <?php echo $department->department_name; ?> <?php else: ?> <?php echo trans('text.create_department'); ?> <?php endif; ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"><?php if(isset($department) && $department->count()): ?> <?php echo trans('text.edit_department'); ?> - <?php echo $department->department_name; ?> <?php else: ?> <?php echo trans('text.create_department'); ?> <?php endif; ?></h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('create_edit_department', (isset($department) && $department->count()) ? $department : false)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET--><!-- END EXAMPLE TABLE PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption"> <span class="caption-subject  bold uppercase"><?php if(isset($department) && $department->count()): ?><?php echo trans('text.edit_department_details'); ?> <?php else: ?> <?php echo trans('text.enter_department_details'); ?> <?php endif; ?></span> <span class="caption-helper"><?php echo trans('text.required_fields'); ?></span> </div>
+    </div>
+    <div class="portlet-body form"> 
+      <!-- BEGIN FORM--> 
+      <?php if(isset($department) && $department->count()): ?>
+      <?php echo Form::model($department, array('route' => array('departments.update', $department->department_id), 'method' => 'PUT', 'class' => 'form-horizontal')); ?>
+
+      <?php else: ?>
+      <?php echo Form::open(array('route' => 'departments.store', 'class' => 'form-horizontal')); ?>
+
+      <?php endif; ?>
+      <div class="form-body">
+        <div class="form-group <?php if($errors->has('department_name')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('department_name', trans('text.department_name'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('department_name', Input::old('department_name'), array('class' => 'form-control')); ?> <?php echo $errors->first('department_name', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('department_desc')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('department_desc', trans('text.department_desc'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('department_desc', Input::old('department_desc'), array('class' => 'form-control')); ?> <?php echo $errors->first('department_desc', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn green"><?php if(isset($department) && $department->count()): ?> <?php echo trans('text.edit_department'); ?> <?php else: ?> <?php echo trans('text.create_department'); ?> <?php endif; ?></button>
+            <?php echo link_to('departments', trans('text.cancel'), ['class' => 'btn default']); ?> </div>
+        </div>
+      </div>
+      <?php echo Form::close(); ?> 
+      <!-- END FORM--> 
+    </div>
+  </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

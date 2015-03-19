@@ -1,0 +1,88 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php if(isset($user) && $user->count()): ?> <?php echo trans('text.edit_user'); ?> - <?php echo $user->user_fullname; ?> <?php else: ?> <?php echo trans('text.create_user'); ?> <?php endif; ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"><?php if(isset($user) && $user->count()): ?> <?php echo trans('text.edit_user'); ?> - <?php echo $user->user_fullname; ?> <?php else: ?> <?php echo trans('text.create_user'); ?> <?php endif; ?></h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('create_edit_user', (isset($user) && $user->count()) ? $user : false)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET--><!-- END EXAMPLE TABLE PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption"> <span class="caption-subject  bold uppercase"><?php if(isset($user) && $user->count()): ?><?php echo trans('text.edit_user_details'); ?> <?php else: ?> <?php echo trans('text.enter_user_details'); ?> <?php endif; ?></span> <span class="caption-helper"><?php echo trans('text.required_fields'); ?></span> </div>
+    </div>
+    <div class="portlet-body form"> 
+      <!-- BEGIN FORM--> 
+      <?php if(isset($user) && $user->count()): ?>
+      <?php echo Form::model($user, array('route' => array('users.update', $user->user_id), 'method' => 'PUT', 'class' => 'form-horizontal', 'files' => true)); ?>
+
+      <?php else: ?>
+      <?php echo Form::open(array('route' => 'users.store', 'class' => 'form-horizontal', 'files' => true)); ?>
+
+      <?php endif; ?>
+      <div class="form-body">
+        <div class="form-group <?php if($errors->has('user_label')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('user_label', trans('text.user_label'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('user_label', Input::old('user_label'), array('class' => 'form-control')); ?> <?php echo $errors->first('user_label', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('user_fullname')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('user_fullname', trans('text.user_fullname').'<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('user_fullname', Input::old('user_fullname'), array('class' => 'form-control')); ?> <?php echo $errors->first('user_fullname', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        
+        <div class="form-group <?php if($errors->has('email')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('email', trans('text.user_email'). '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('email', Input::old('email'), array('class' => 'form-control')); ?> <?php echo $errors->first('email', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('user_password')): ?> has-error <?php endif; ?>"> <?php if(isset($user) && $user->count()): ?>
+          <?php echo Form::label_html('password', trans('text.user_password'), array('class' => 'col-md-3 control-label')); ?>
+
+          <?php else: ?>
+          <?php echo Form::label_html('password', trans('text.user_password') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <?php endif; ?>
+          <div class="col-md-4"> <?php echo Form::password('password', array('class' => 'form-control')); ?> <?php echo $errors->first('password', '<span class="help-block help-block-error">:message</span>'); ?>
+
+            <?php if(isset($user) && $user->count()): ?>
+            <p class="help-block">Leave password blank if you do not want to change</p>
+            <?php endif; ?> </div>
+        </div>
+        <div class="form-group <?php if($errors->has('user_phone')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('user_phone', trans('text.user_phone'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('user_phone', Input::old('user_phone'), array('class' => 'form-control')); ?> <?php echo $errors->first('user_phone', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <?php if(check_permission('edit_user')): ?>
+        <div class="form-group <?php if($errors->has('user_status')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('user_status', trans('text.user_status'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::select('user_status', array(1 => trans('text.active'), 0 => trans('text.disabled')), Input::old('user_status') , array('class' => 'form-control select2me')); ?> <?php echo $errors->first('user_status', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <?php endif; ?>
+        <div class="form-group last <?php if($errors->has('user_profile_pic_uri')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('user_profile_pic_uri', trans('text.user_profile_pic'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::file('user_profile_pic_uri'); ?> <?php echo $errors->first('user_profile_pic_uri', '<span class="help-block help-block-error">:message</span>'); ?>
+
+            <p class="help-block"><?php echo trans('text.profile_pic_type_req'); ?><br>
+              <?php echo trans('text.image_dim_reqs'); ?> <?php echo Setting::get('profile_pic_width'); ?>px <?php echo trans('text.by'); ?> <?php echo Setting::get('profile_pic_height'); ?>px</p>
+            <?php if(isset($user) && $user->count() && $user->user_profile_pic_uri): ?>
+            <p><img src="<?php echo url('uploads/profiles/' . $user->user_profile_pic_uri); ?>"/></p>
+            <?php endif; ?> </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn green"><?php if(isset($user) && $user->count()): ?> <?php echo trans('text.edit_user'); ?> <?php else: ?> <?php echo trans('text.create_user'); ?> <?php endif; ?></button>
+            <?php echo link_to('users', trans('text.cancel'), ['class' => 'btn default']); ?> </div>
+        </div>
+      </div>
+      <?php echo Form::close(); ?> 
+      <!-- END FORM--> 
+    </div>
+  </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

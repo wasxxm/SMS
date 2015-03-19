@@ -1,0 +1,26 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|            Patrimonial				|
+|										|
+|***************************************|
+
+Briefing: 
+
+    This module will manage all company assets and create labels for them.
+    
+    Categories:
+        
+        Users can create, update, list and delete categories for the assets.
+	
+	Items:
+	    
+	    Users can create, update list and delete items.
+	    
+	    Items must have:
+	        
+	        * Name
+	        * Value (maybe a decrease value over time function)
+	        * Description
+	        * Category
+	        * Label number

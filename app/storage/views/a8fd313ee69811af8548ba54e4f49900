@@ -1,0 +1,58 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php if(isset($study_program) && $study_program->count()): ?> <?php echo trans('text.edit_study_program'); ?> - <?php echo $study_program->study_program_name; ?> <?php else: ?> <?php echo trans('text.create_study_program'); ?> <?php endif; ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"><?php if(isset($study_program) && $study_program->count()): ?> <?php echo trans('text.edit_study_program'); ?> - <?php echo $study_program->study_program_name; ?> <?php else: ?> <?php echo trans('text.create_study_program'); ?> <?php endif; ?></h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('create_edit_study_program', (isset($study_program) && $study_program->count()) ? $study_program : false)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET--><!-- END EXAMPLE TABLE PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption"> <span class="caption-subject  bold uppercase"><?php if(isset($study_program) && $study_program->count()): ?><?php echo trans('text.edit_study_program_details'); ?> <?php else: ?> <?php echo trans('text.enter_study_program_details'); ?> <?php endif; ?></span> <span class="caption-helper"><?php echo trans('text.required_fields'); ?></span> </div>
+    </div>
+    <div class="portlet-body form"> 
+      <!-- BEGIN FORM--> 
+      <?php if(isset($study_program) && $study_program->count()): ?>
+      <?php echo Form::model($study_program, array('route' => array('study_programs.update', $study_program->study_program_id), 'method' => 'PUT', 'class' => 'form-horizontal')); ?>
+
+      <?php else: ?>
+      <?php echo Form::open(array('route' => 'study_programs.store', 'class' => 'form-horizontal')); ?>
+
+      <?php endif; ?>
+      <div class="form-body">
+        <div class="form-group <?php if($errors->has('study_program_name')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('study_program_name', trans('text.study_program_name') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('study_program_name', Input::old('study_program_name'), array('class' => 'form-control')); ?> <?php echo $errors->first('study_program_name', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('study_program_desc')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('study_program_desc', trans('text.study_program_desc'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::textarea('study_program_desc', Input::old('study_program_desc'), array('class' => 'form-control', 'size' => '40x3')); ?> <?php echo $errors->first('study_program_desc', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('study_program_duration')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('study_program_duration', trans('text.study_program_duration') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('study_program_duration', Input::old('study_program_duration'), array('class' => 'form-control')); ?> <?php echo $errors->first('study_program_duration', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group <?php if($errors->has('department_id')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('department_id', trans('text.choose_department') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::select('department_id', array_combine(Department::get()->lists('department_id'), Department::get()->lists('department_name')), Input::old('department_id'), array('class' => 'form-control select2me')); ?> <?php echo $errors->first('department_id', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn green"><?php if(isset($study_program) && $study_program->count()): ?> <?php echo trans('text.edit_study_program'); ?> <?php else: ?> <?php echo trans('text.create_study_program'); ?> <?php endif; ?></button>
+            <?php echo link_to('study_programs', trans('text.cancel'), ['class' => 'btn default']); ?> </div>
+        </div>
+      </div>
+      <?php echo Form::close(); ?> 
+      <!-- END FORM--> 
+    </div>
+  </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

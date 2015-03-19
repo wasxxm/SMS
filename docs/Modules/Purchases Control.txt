@@ -1,0 +1,32 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|         Purchases Control			    |
+|										|
+|***************************************|
+
+
+Briefing:
+    
+    Purchases Control module manage all purchase orders and purchase requests that come from inventory control.	
+	
+	
+	
+	Suppliers:
+	    Users can create, edit, list and delete suppliers.
+	    
+	    
+	 
+	Purchase Requests:
+	    
+	    All purchase orders created by the inventory control may be seen here but not changed and/or deleted
+	
+		
+	
+	
+	Purchase Orders: 
+	
+	    Users can create purchase orders that will be approved or not by the finance department. The orders must contain the necessary products and the right 
+	    supplier (phone number, email address, name ... ), total price.
+	    
+	    Users can also edit, list and delete purchase orders.

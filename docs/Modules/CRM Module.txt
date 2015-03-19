@@ -1,0 +1,35 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|               CRM						|
+|										|
+|***************************************|
+
+Briefing: 
+    This module will manage all clients and contacts.
+	
+
+
+Clients:
+    Users can create, edit, list, and delete clients.
+    The list will have names, phone numbers and emails.
+    
+    The client profile must have these infos:
+        
+        * Client data
+        * Sales/Services bought/used
+        * Contracts active/inactive
+        * Total money spent
+        * Invoices overdue/on time 
+        * Register date
+        * Textfield with observations
+	
+	
+Mail delivery system:
+    The system allows automatic email send when specific operations occur (such as budgets, invoices, contracts, sales, services ....)
+    
+    The user can also send emails to the client.
+    
+Newsletter:
+    
+    The client can be registered in the newsletter, the emails sent must have a link for unsubscription.

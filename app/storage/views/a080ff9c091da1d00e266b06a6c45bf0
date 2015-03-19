@@ -1,0 +1,73 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php if(isset($permission_set) && $permission_set->count()): ?> <?php echo trans('text.edit_permission_set'); ?> - <?php echo $permission_set->permission_set_name; ?> <?php else: ?> <?php echo trans('text.create_permission_set'); ?> <?php endif; ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"><?php if(isset($permission_set) && $permission_set->count()): ?> <?php echo trans('text.edit_permission_set'); ?> - <?php echo $permission_set->permission_set_name; ?> <?php else: ?> <?php echo trans('text.create_permission_set'); ?> <?php endif; ?></h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('create_edit_permission_set', (isset($permission_set) && $permission_set->count()) ? $permission_set : false)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET--><!-- END EXAMPLE TABLE PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption"> <span class="caption-subject  bold uppercase"><?php if(isset($permission_set) && $permission_set->count()): ?><?php echo trans('text.edit_permission_set'); ?> <?php else: ?> <?php echo trans('text.enter_permission_set'); ?> <?php endif; ?></span> <span class="caption-helper"><?php echo trans('text.required_fields'); ?></span> </div>
+    </div>
+    <div class="portlet-body form"> 
+      <!-- BEGIN FORM--> 
+      <?php if(isset($permission_set) && $permission_set->count()): ?>
+      <?php $permissions = Permission::get_str($permission_set->permission_ids); ?>
+      <?php echo Form::model($permission_set, array('route' => array('permissions.update', $permission_set->permission_set_id), 'method' => 'PUT', 'class' => 'form-horizontal')); ?>
+
+      <?php else: ?>
+      <?php echo Form::open(array('route' => 'permissions.store', 'class' => 'form-horizontal')); ?>
+
+      <?php endif; ?>
+      <div class="form-body">
+        <div class="form-group <?php if($errors->has('permission_set_name')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('permission_set_name', trans('text.permission_set_name'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::text('permission_set_name', Input::old('permission_set_name'), array('class' => 'form-control')); ?> <?php echo $errors->first('permission_set_name', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+        <div class="form-group"> <?php echo Form::label_html('permissions', trans('text.add_permissions'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4">
+            <?php
+		      $permissions = array_combine(Permission::where('super_user', 0)->get()->lists('permission_id'), Permission::where('super_user', 0)->get()->lists('permission_name'));
+		   ?>
+            <select multiple="multiple" name="permission_ids[]" id="permission_ids1" class="multi-select">
+                         
+             <?php foreach($permissions as $id => $name): ?>
+                 <?php if(isset($permission_set) && $permission_set->count()): ?>
+                 
+              <?php $permission_ids = $permission_set->permission_ids; $permission_ids = explode(',', $permission_ids); ?>
+              <option value="<?php echo $id; ?>" <?php if(in_array($id, $permission_ids)): ?> selected <?php endif; ?>><?php echo $name; ?></option>
+                 <?php else: ?>  
+               <?php $permission_ids = (array)Input::old('permission_ids');?>
+               <option value="<?php echo $id; ?>" <?php if(in_array($id, $permission_ids)): ?> selected <?php endif; ?>><?php echo $name; ?></option>            
+                 <?php endif; ?>
+             <?php endforeach; ?>
+            
+            </select>
+          </div>
+        </div>
+        <div class="form-group <?php if($errors->has('permission_set_desc')): ?> has-error <?php endif; ?>"> <?php echo Form::label_html('permission_set_desc', trans('text.permission_set_desc'), array('class' => 'col-md-3 control-label')); ?>
+
+          <div class="col-md-4"> <?php echo Form::textarea('permission_set_desc', Input::old('permission_set_desc'), array('class' => 'form-control', 'size' => '40x3')); ?> <?php echo $errors->first('permission_set_desc', '<span class="help-block help-block-error">:message</span>'); ?></div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn green"><?php if(isset($permission_set) && $permission_set->count()): ?> <?php echo trans('text.edit_permission_set'); ?> <?php else: ?> <?php echo trans('text.create_permission_set'); ?> <?php endif; ?></button>
+            <?php echo link_to('permissions', trans('text.cancel'), ['class' => 'btn default']); ?> </div>
+        </div>
+      </div>
+      <?php echo Form::close(); ?> 
+      <!-- END FORM--> 
+    </div>
+  </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

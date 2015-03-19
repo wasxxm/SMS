@@ -1,0 +1,59 @@
+<?php $__env->startSection('the_title'); ?>
+<?php if(isset($batch) && $batch->count()): ?>
+<title><?php echo trans('text.view_batch_single'); ?> <?php echo $batch->batch_name; ?></title>
+<?php else: ?>
+<title><?php echo trans('text.batch_not_found'); ?></title>
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<?php if(isset($batch) && $batch->count()): ?>
+<h3 class="page-title"> <?php echo trans('text.view_batch_single'); ?> <?php echo $batch->batch_name; ?> </h3>
+<?php else: ?>
+<h3 class="page-title"> <?php echo trans('text.batch_not_found'); ?> </h3>
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+<?php if(isset($batch) && $batch->count()): ?>
+   <?php $__env->startSection('breadcrumb', Breadcrumbs::render('show_batch', $batch)); ?>
+<?php endif; ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12">
+<!-- BEGIN EXAMPLE TABLE PORTLET--> 
+<?php if(isset($batch) && $batch->count()): ?>
+<div class="portlet gren">
+  <div class="portlet-title">
+    <div class="caption"><?php echo trans('text.batch'); ?> - <?php echo $batch->batch_name; ?> </div>
+    <div class="actions"> <?php if(check_permission('edit_batch')): ?> <a href='<?php echo url("batchs/$batch->batch_id/edit"); ?>' class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> <?php echo trans('text.edit_batch'); ?> </a> <?php endif; ?>
+      <?php if(check_permission('delete_batch')): ?> <a href='<?php echo url("batchs/{$batch->batch_id}/delete"); ?>'  class="btn red btn-sm"> <?php echo trans('text.delete'); ?></a> <?php endif; ?> </div>
+  </div>
+  <div class="portlet-body">
+    <table class="table table-striped table-bordered table-hover" id="view-user">
+      <tbody>
+        <tr>
+          <td width="106"><?php echo trans('text.batch_name'); ?></td>
+          <td width="330"><strong><?php echo $batch->batch_name; ?></strong></td>
+        </tr>
+        <tr>
+          <td width="106"><?php echo trans('text.batch_start_date'); ?></td>
+          <td width="330"><strong><?php echo format_date($batch->batch_start_date); ?></strong></td>
+        </tr>
+        <tr>
+          <td width="106"><?php echo trans('text.study_program'); ?></td>
+          <td width="330"><strong><?php echo link_to("study_programs/{$batch->study_program->study_program_id}", $batch->study_program->study_program_name); ?></strong></td>
+        </tr>
+        <tr>
+          <td width="106"><?php echo trans('text.department'); ?></td>
+          <td width="330"><strong><?php echo link_to("departments/{$batch->department->department_id}", $batch->department->department_name); ?></strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <?php else: ?>
+  <p><?php echo trans('text.try_diff_keyword'); ?></p>
+  <?php endif; ?> 
+  <!-- END EXAMPLE TABLE PORTLET--> 
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

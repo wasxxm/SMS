@@ -1,0 +1,12 @@
+<?php if($breadcrumbs): ?>
+    <ul class="page-breadcrumb">
+    <li> <i class="fa fa-home"></i> <?php echo link_to('/', trans('text.dashboard'));; ?> <i class="fa fa-angle-right"></i> </li>
+        <?php foreach($breadcrumbs as $breadcrumb): ?>
+            <?php if(!$breadcrumb->last): ?>
+                <li><a href="<?php echo e($breadcrumb->url); ?>"><?php echo e($breadcrumb->title); ?></a> <i class="fa fa-angle-right"></i></li>
+            <?php else: ?>
+                <li class="active"><?php echo e($breadcrumb->title); ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

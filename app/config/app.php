@@ -129,6 +129,7 @@ return array(
 		'Jenssegers\Date\DateServiceProvider',
 		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 		'Ville\Storage\StorageServiceProvider',
+		'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
 
 	),
 

@@ -20,9 +20,9 @@
     <div class="portlet-body form"> 
       <!-- BEGIN FORM--> 
       @if(isset($user) && $user->count())
-      {{ Form::model($user, array('route' => array('users.update', $user->user_id), 'method' => 'PUT', 'class' => 'form-horizontal')) }}
+      {{ Form::model($user, array('route' => array('users.update', $user->user_id), 'method' => 'PUT', 'class' => 'form-horizontal', 'files' => true)) }}
       @else
-      {{ Form::open(array('route' => 'users.store', 'class' => 'form-horizontal')) }}
+      {{ Form::open(array('route' => 'users.store', 'class' => 'form-horizontal', 'files' => true)) }}
       @endif
       <div class="form-body">
         <div class="form-group @if($errors->has('user_label')) has-error @endif"> {{ Form::label_html('user_label', trans('text.user_label'), array('class' => 'col-md-3 control-label')) }}
@@ -31,18 +31,16 @@
         <div class="form-group @if($errors->has('user_fullname')) has-error @endif"> {{ Form::label_html('user_fullname', trans('text.user_fullname').'<span class="required">*</span>', array('class' => 'col-md-3 control-label')) }}
           <div class="col-md-4"> {{ Form::text('user_fullname', Input::old('user_fullname'), array('class' => 'form-control')) }} {{ $errors->first('user_fullname', '<span class="help-block help-block-error">:message</span>') }}</div>
         </div>
-        <div class="form-group @if($errors->has('user_company_id')) has-error @endif"> {{ Form::label_html('user_company_id', trans('text.user_company_name') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')) }}
-          <div class="col-md-4"> {{ Form::select('user_company_id', array_combine(Company::get_col('company_id'), Company::get_col('company_name')), Input::old('user_company_id'), array('class' => 'form-control select2me', 'data-placeholder' => trans('text.select_company'))) }} {{ $errors->first('user_company_id', '<span class="help-block help-block-error">:message</span>') }}</div>
-        </div>
-        <div class="form-group @if($errors->has('user_email')) has-error @endif"> {{ Form::label_html('user_email', trans('text.user_email'). '<span class="required">*</span>', array('class' => 'col-md-3 control-label')) }}
-          <div class="col-md-4"> {{ Form::text('user_email', Input::old('user_email'), array('class' => 'form-control')) }} {{ $errors->first('user_email', '<span class="help-block help-block-error">:message</span>') }}</div>
+        
+        <div class="form-group @if($errors->has('email')) has-error @endif"> {{ Form::label_html('email', trans('text.user_email'). '<span class="required">*</span>', array('class' => 'col-md-3 control-label')) }}
+          <div class="col-md-4"> {{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }} {{ $errors->first('email', '<span class="help-block help-block-error">:message</span>') }}</div>
         </div>
         <div class="form-group @if($errors->has('user_password')) has-error @endif"> @if(isset($user) && $user->count())
-          {{ Form::label_html('user_password', trans('text.user_password'), array('class' => 'col-md-3 control-label')) }}
+          {{ Form::label_html('password', trans('text.user_password'), array('class' => 'col-md-3 control-label')) }}
           @else
-          {{ Form::label_html('user_password', trans('text.user_password') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')) }}
+          {{ Form::label_html('password', trans('text.user_password') . '<span class="required">*</span>', array('class' => 'col-md-3 control-label')) }}
           @endif
-          <div class="col-md-4"> {{ Form::password('user_password', array('class' => 'form-control')) }} {{ $errors->first('user_password', '<span class="help-block help-block-error">:message</span>') }}
+          <div class="col-md-4"> {{ Form::password('password', array('class' => 'form-control')) }} {{ $errors->first('password', '<span class="help-block help-block-error">:message</span>') }}
             @if(isset($user) && $user->count())
             <p class="help-block">Leave password blank if you do not want to change</p>
             @endif </div>
@@ -50,8 +48,18 @@
         <div class="form-group @if($errors->has('user_phone')) has-error @endif"> {{ Form::label_html('user_phone', trans('text.user_phone'), array('class' => 'col-md-3 control-label')) }}
           <div class="col-md-4"> {{ Form::text('user_phone', Input::old('user_phone'), array('class' => 'form-control')) }} {{ $errors->first('user_phone', '<span class="help-block help-block-error">:message</span>') }}</div>
         </div>
+        @if (check_permission('edit_user'))
         <div class="form-group @if($errors->has('user_status')) has-error @endif"> {{ Form::label_html('user_status', trans('text.user_status'), array('class' => 'col-md-3 control-label')) }}
           <div class="col-md-4"> {{ Form::select('user_status', array(1 => trans('text.active'), 0 => trans('text.disabled')), Input::old('user_status') , array('class' => 'form-control select2me')) }} {{ $errors->first('user_status', '<span class="help-block help-block-error">:message</span>') }}</div>
+        </div>
+        @endif
+        <div class="form-group last @if($errors->has('user_profile_pic_uri')) has-error @endif"> {{ Form::label_html('user_profile_pic_uri', trans('text.user_profile_pic'), array('class' => 'col-md-3 control-label')) }}
+          <div class="col-md-4"> {{ Form::file('user_profile_pic_uri') }} {{ $errors->first('user_profile_pic_uri', '<span class="help-block help-block-error">:message</span>') }}
+            <p class="help-block">{{ trans('text.profile_pic_type_req') }}<br>
+              {{ trans('text.image_dim_reqs') }} {{ Setting::get('profile_pic_width') }}px {{trans('text.by')}} {{ Setting::get('profile_pic_height') }}px</p>
+            @if(isset($user) && $user->count() && $user->user_profile_pic_uri)
+            <p><img src="{{url('uploads/profiles/' . $user->user_profile_pic_uri)}}"/></p>
+            @endif </div>
         </div>
       </div>
       <div class="form-actions">

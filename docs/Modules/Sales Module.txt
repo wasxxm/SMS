@@ -1,0 +1,42 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|               Sales					|
+|										|
+|***************************************|
+
+Briefing: 
+
+
+    This module will manage all sales within the ERP.
+    
+    
+    
+Budgets:
+    
+    
+    Users can create budgets selecting the products and the client.
+    
+    The budget can be sent to the client's email address if needed.
+    
+    Users can also list, update, delete and transform budgets into sales.
+    
+    
+Sales:
+    
+    Users can reate sales selecting products the client, and the payment method.
+    
+    They can also list and view the sales.
+    
+    ** We are not sure if the user can edit or delete the sale.
+    
+    
+Supply contracts:
+    
+    Users can create supply contracts selecting the products, the client, the payment method and the start/end date.
+    
+    
+    The can also list, view, stop and renew the contracts.
+    
+    
+    ** We are not sure if the user can edit or delete the contract.

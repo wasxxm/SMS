@@ -143,13 +143,15 @@ return array(
 						'max' => 'The company logo may not be greater than :max kilobytes.'
 		),
 		'user_company_id'  => array(
-						'required' => 'The user must be assigned a company'
+						'required' => 'The user must be assigned a company',
+						'in'	=> 'The selected user company is invalid.'
 		),
-		'user_email'  => array(
+		'email'  => array(
 						'required'	=> 'The user email is required.',
-						'email'		=> 'The user must have a valid email address.'
+						'email'		=> 'The user must have a valid email address.',
+						'unique'	=> 'The email has already been taken.'	
 		),
-		'user_password'  => array(
+		'password'  => array(
 						'required'	=> 'The user password is required.',
 						'min'		=> 'The user password must be at least :min characters.'
 		),
@@ -162,6 +164,34 @@ return array(
 		),
 		'user_label'  => array(
 						'between'	=> 'The user title must be between :min and :max characters.'
+		),
+		'department_id'  => array(
+						'unique_with' => 'The user is already added to this department.'
+		),
+		'department_name'  => array(
+						'unique' => 'The department name has already been taken.'
+		),
+		'permission_set_name'  => array(
+						'required' => 'The permission set name is required.'
+		),
+		'permission_ids'  => array(
+						'required' => 'You must add at least one permission.'
+		),
+		'permission_set_desc'  => array(
+						'between' => 'The permission set description must be between :min and :max characters.'
+		),
+		'user_permission_set_id'  => array(
+						'unique_with' => 'The permission set is already assigned to this user.'
+		),
+		'department_permission_set_id'  => array(
+						'unique_with' => 'The permission set is already assigned to this department.'
+		),
+	    'purchase_request_name'  => array(
+						'required' => 'The purchase request name is required.',
+						'min'	=> 'The purchase request name must be at least :min characters.'
+		),
+	    'purchase_request_desc'  => array(
+						'min'	=> 'The purchase request description must be at least :min characters.'
 		),
 	),
 

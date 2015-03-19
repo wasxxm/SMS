@@ -1,0 +1,84 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|              Admin					|
+|										|
+|***************************************|
+
+Briefing:
+    
+    This module can manage all system configs and Display informations.
+	
+	
+
+Graphs:
+	
+	The user can view graphs related to system infos and estimatives.
+	
+
+Logs:
+	
+	The system must register all operations in logs.
+	
+	Only admins can see logs, but nobody can change them.
+	
+	
+Reports:
+    
+    User can view reports from many areas in the system whithin a specific period. 
+    
+	Reports can relate to clients, sales, services, contracts, purchases, users, employees etc.
+	
+	
+	
+Import/Export:
+    
+    One of the most important things in the system. The system must import/export files in many areas (as many as possible).
+    
+    Desired file extensions: csv, xml, xls, xlsx etc.
+	
+
+Users:
+    
+    Admins can create, list, update and delete users from system.
+    
+    Common users can only change their own data.
+    
+    
+    Permission system:
+        
+            Users from a department will receive its permissions.
+            
+            The permissions system consists in giving access (partial or total) to a specific ERP function
+            
+            Only admins can change users' permissions.
+            
+Departments:
+    
+    Admins can create, list, update and delete departments from system.
+    
+    Permission system:
+        
+            The permissions system consists in giving access (partial or total) to a specific ERP function
+            
+            Only admins can change departments' permissions.
+        
+		
+Internal notes:
+    
+    Users with right permissions can send internal notes to a department, user ou all users with a text message.
+
+
+
+Company Configs:
+    
+    Users with right permissions can change company infos such as:
+        
+        * Company Name
+        * Logo
+        * CPNJ (Number of registry in Brazil)
+        * Address
+        * General Email
+        * Contacts
+        
+    ** These configs can change **

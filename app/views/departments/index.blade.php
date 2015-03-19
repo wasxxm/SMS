@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
 @section('the_title')
-<title>Manage Departments</title>
+<title>{{ trans('text.manage_departments') }}</title>
 @stop
 
 @section('body_title')
-<h3 class="page-title"> Departments <small>Manage Departments</small> </h3>
+<h3 class="page-title"> {{ trans('text.departments') }} <small>{{ trans('text.manage_departments') }}</small> </h3>
 @stop
 
 @section('breadcrumb', Breadcrumbs::render('departments', $departments))
@@ -15,14 +15,14 @@
   <!-- BEGIN EXAMPLE TABLE PORTLET-->
   <div class="portlet box grey-cascade">
     <div class="portlet-title">
-      <div class="caption">Departments </div>
+      <div class="caption">{{ trans('text.departments') }} </div>
       <div class="tools"> <a href="javascript:;" class="collapse"> </div>
     </div>
     <div class="portlet-body">
       <div class="table-toolbar">
         <div class="row">
           <div class="col-md-6">
-            <div class="btn-group"> <a id="sample_editable_1_new" class="btn green" href="{{ url('departments/create') }}"> Add Department <i class="fa fa-plus"></i> </a> </div>
+            <div class="btn-group"> @if(check_permission('create_department'))<a id="sample_editable_1_new" class="btn green" href="{{ url('departments/create') }}"> {{ trans('text.add_department') }} <i class="fa fa-plus"></i> </a>@else <a href=""></a> @endif </div>
           </div>
           <div class="col-md-6">
             <div class="btn-group pull-right">
@@ -35,14 +35,17 @@
         </div>
       </div>
       @if ($departments->count())
-      <table class="table table-striped table-bordered table-hover" id="departments">
+      <table class="table table-striped table-bordered table-hover" id="users">
         <thead>
           <tr>
-            <th> {{ SortableTrait::link_to_sorting_action('department_id', 'Department ID') }} </th>
-            <th> {{ SortableTrait::link_to_sorting_action('department_name', 'Department Name') }} </th>
+            <th width="100"> {{ SortableTrait::link_to_sorting_action('department_id', trans('text.id')) }} </th>
+            <th> {{ SortableTrait::link_to_sorting_action('department_name', trans('text.name')) }} </th>
+            @if(check_permission('edit_department'))
             <th> {{ trans('text.edit') }} </th>
-            <th> {{ trans('text.status') }} </th>
-          </tr>
+            @endif
+             @if(check_permission('delete_department'))
+            <th> {{ trans('text.delete') }} </th>
+            @endif </tr>
         </thead>
         <tbody>
         
@@ -50,16 +53,20 @@
         <tr class="odd gradeX">
           <td> {{ $department->department_id }} </td>
           <td> {{ link_to("departments/{$department->department_id}", $department->department_name) }} </td>
+          @if(check_permission('edit_department'))
           <td> {{ link_to("departments/{$department->department_id}/edit", trans('text.edit')) }} </td>
-          <td> {{ link_to("departments/{$department->department_id}/delete", 'Delete') }} </td>
-        </tr>
+          @endif
+           @if(check_permission('delete_department'))
+          <td> {{ link_to("departments/{$department->department_id}/delete", trans('text.delete')) }} </td>
+          @endif
+           </tr>
         @endforeach
           </tbody>
         
       </table>
       {{$departments->appends(Request::except('page'))->links()}}
       @else
-      <p>No Department Added</p>
+      <p>{{ trans('text.no_department_added') }}</p>
       @endif </div>
   </div>
   <!-- END EXAMPLE TABLE PORTLET--> 

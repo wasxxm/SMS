@@ -1,0 +1,80 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php echo trans('text.manage_suppliers'); ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"> <?php echo trans('text.suppliers'); ?> <small><?php echo trans('text.manage_suppliers'); ?></small> </h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb', Breadcrumbs::render('suppliers', $suppliers)); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET-->
+  <div class="portlet box grey-cascade">
+    <div class="portlet-title">
+      <div class="caption"><?php echo trans('text.suppliers'); ?> </div>
+      <div class="tools"> <a href="javascript:;" class="collapse"> </div>
+    </div>
+    <div class="portlet-body">
+      <div class="table-toolbar">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="btn-group"> <?php if(check_permission('create_supplier')): ?><a id="sample_editable_1_new" class="btn green" href="<?php echo url('suppliers/create'); ?>"> <?php echo trans('text.add_supplier'); ?> <i class="fa fa-plus"></i> </a><?php else: ?> <a href=""></a> <?php endif; ?> </div>
+          </div>
+          <div class="col-md-6">
+            <div class="btn-group pull-right">
+              <button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo trans('text.tools'); ?> <i class="fa fa-angle-down"></i> </button>
+              <ul class="dropdown-menu pull-right">
+                <li> <a href="#"> <?php echo trans('text.export_excel'); ?> </a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php if($suppliers->count()): ?>
+      <table class="table table-striped table-bordered table-hover" id="users">
+        <thead>
+          <tr>
+            <th width="100"> <?php echo SortableTrait::link_to_sorting_action('supplier_id', trans('text.id')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('supplier_name', trans('text.name')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('supplier_email', trans('text.email')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('supplier_money_spent', trans('text.money_spent')); ?> (<?php echo get_company_config('currency_code'); ?> - <?php echo get_currency(get_company_config('currency_code')); ?>) </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('supplier_register_date', trans('text.register_date')); ?> </th>
+            <?php if(check_permission('edit_supplier')): ?>
+            <th> <?php echo trans('text.edit'); ?> </th>
+            <?php endif; ?>
+             <?php if(check_permission('delete_supplier')): ?>
+            <th> <?php echo trans('text.delete'); ?> </th>
+            <?php endif; ?> </tr>
+        </thead>
+        <tbody>
+        
+        <?php foreach($suppliers as $supplier): ?>
+        <tr class="odd gradeX">
+          <td> <?php echo $supplier->supplier_id; ?> </td>
+          <td> <?php echo link_to("suppliers/{$supplier->supplier_id}", $supplier->supplier_name); ?> </td>
+          <td> <?php echo $supplier->supplier_email; ?> </td>
+          <td> <?php echo $supplier->supplier_money_spent; ?> </td>
+          <td> <?php echo format_date($supplier->supplier_register_date); ?> </td>
+          <?php if(check_permission('edit_supplier')): ?>
+          <td> <?php echo link_to("suppliers/{$supplier->supplier_id}/edit", trans('text.edit')); ?> </td>
+          <?php endif; ?>
+           <?php if(check_permission('delete_supplier')): ?>
+          <td> <?php echo link_to("suppliers/{$supplier->supplier_id}/delete", trans('text.delete')); ?> </td>
+          <?php endif; ?>
+           </tr>
+        <?php endforeach; ?>
+          </tbody>
+        
+      </table>
+      <?php echo $suppliers->appends(Request::except('page'))->links(); ?>
+
+      <?php else: ?>
+      <p><?php echo trans('text.no_supplier_added'); ?></p>
+      <?php endif; ?> </div>
+  </div>
+  <!-- END EXAMPLE TABLE PORTLET--> 
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

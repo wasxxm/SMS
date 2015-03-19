@@ -1,0 +1,36 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|             Services					|
+|										|
+|***************************************|
+
+Briefing: 
+
+    This module will manage all services inside the ERP.
+    
+    
+    
+    
+Budgets:
+    
+    Users can create budgets, selecting the service and the necessary products (if needed) and the client.
+    
+    The budget can be sent to the client's email address if needed.
+    
+    Users can also list, edit, delete and transform budgets into services/contracts
+    
+    
+    
+Services:
+    
+    Users can create services, selecting the service and the necessary products (if needed), the client and the payment method.
+    
+    They can also list services but we are not sure if they can edit and delete them. 
+    
+    
+    Contracts:
+        
+        The same as services but, this time, it will last untill the end date. Payments every  * months.
+        
+        Contracts can stop at any given time, e renew as well.

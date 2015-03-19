@@ -1,0 +1,48 @@
+|***************************************|
+|										|
+|		 Module Description:			|
+|         Inventory Control				|
+|										|
+|***************************************|
+
+Briefing:
+    
+    This module will manage all in/out of products in the system. It's possible to create purchase requests and create categories for the products.
+ 
+
+
+Products in/out:
+    
+    In:
+        The user can register the input of a product in the inventory selecting manually the items or the items of a purchase order with approved status.
+        
+        Selecting items from a purchase order will change it's status to Delivered.
+        
+        
+Product Categories:
+    
+    Products can be divided in categories for better searches.
+    
+    Users can create new categories.
+    
+ 
+Products:
+    
+    Products are the inventory basis. They need to be created so the inventory can work normally.
+    
+    Users can create, list, update, delete products.
+    
+    
+Purchase requests:
+    
+    Uses can create purchase requests will all products they need (the purchases control module will create separated purchase orders for each supplier).
+    
+    The purchase request will go only to the purchases control module and then will be aproved or not. If aproved one or many purchase orders will be created.
+    
+    If not aproved the purchase requests can be edited and be resubmitted to the purchases control department.
+
+
+
+Purchase orders:
+
+    Inventory control will see purchase orders, but not update or delete them. They can follow the status and then change them to delivered.

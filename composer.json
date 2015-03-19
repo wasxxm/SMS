@@ -42,6 +42,7 @@
         "xethron/migrations-generator": "dev-master",
 		"webpatser/laravel-countries": "dev-master",
 		"way/generators": "~2.0",
-		"laravelbook/ardent": "2.*"
+		"laravelbook/ardent": "2.*",
+		"felixkiss/uniquewith-validator": "1.1.*"
     }
 }

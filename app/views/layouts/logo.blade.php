@@ -1,0 +1,1 @@
+<a href="{{ url('/') }}"> <img src="{{ URL::asset('assets/admin/layout/img/logo.png') }}" alt="logo" class="logo-default"/> </a>

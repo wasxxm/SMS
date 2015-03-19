@@ -1,0 +1,76 @@
+<?php $__env->startSection('the_title'); ?>
+<title><?php echo trans('text.manage_users'); ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_title'); ?>
+<h3 class="page-title"> <?php echo trans('text.users'); ?> <small><?php echo trans('text.manage_users'); ?></small> </h3>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumb'); ?>
+<ul class="page-breadcrumb">
+  <li> <i class="fa fa-home"></i> <?php echo link_to('/', trans('text.dashboard'));; ?> <i class="fa fa-angle-right"></i> </li>
+  <li> <?php echo trans('text.users'); ?> </li>
+</ul>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="col-md-12"> 
+  <!-- BEGIN EXAMPLE TABLE PORTLET-->
+  <div class="portlet box grey-cascade">
+    <div class="portlet-title">
+      <div class="caption"><?php echo trans('text.users'); ?> </div>
+      <div class="tools"> <a href="javascript:;" class="collapse"> </div>
+    </div>
+    <div class="portlet-body">
+      <div class="table-toolbar">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="btn-group"> <?php if(check_permission('create_user')): ?><a id="sample_editable_1_new" class="btn green" href="<?php echo url('users/create'); ?>"> <?php echo trans('text.add_user'); ?> <i class="fa fa-plus"></i> </a><?php else: ?> <a href=""></a> <?php endif; ?>  </div>
+          </div>
+          <div class="col-md-6">
+            <div class="btn-group pull-right">
+              <button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo trans('text.tools'); ?> <i class="fa fa-angle-down"></i> </button>
+              <ul class="dropdown-menu pull-right">
+                <li> <a href="#"> <?php echo trans('text.export_excel'); ?> </a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php if($users->count()): ?>
+      <table class="table table-striped table-bordered table-hover" id="users">
+        <thead>
+          <tr>
+            <th> <?php echo SortableTrait::link_to_sorting_action('user_id', trans('text.id')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('user_fullname', trans('text.name')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('email', trans('text.email')); ?> </th>
+            <th> <?php echo SortableTrait::link_to_sorting_action('created_at', trans('text.register_date')); ?> </th>
+            <?php if(check_permission('edit_user')): ?><th> <?php echo trans('text.edit'); ?> </th><?php endif; ?>
+            <th> <?php echo trans('text.status'); ?> </th>
+          </tr>
+        </thead>
+        <tbody>
+        
+        <?php foreach($users as $user): ?>
+        <tr class="odd gradeX">
+          <td> <?php echo $user->user_id; ?> </td>
+          <td> <?php echo link_to("users/{$user->user_id}", $user->user_fullname); ?> </td>
+          <td><a href="mailto:<?php echo $user->email; ?>"> <?php echo $user->email; ?> </a></td>
+          <td> <?php echo format_date($user->created_at); ?> </td>
+         <?php if(check_permission('edit_user')): ?> <td> <?php echo link_to("users/{$user->user_id}/edit", trans('text.edit')); ?> </td> <?php endif; ?>
+          <td><?php echo ($user->user_status)? '<span class="label label-sm label-success">' . trans('text.active') . '</span>' : '<span class="label label-sm label-danger">' . trans('text.blocked') . '</span>'; ?>&nbsp; &nbsp; <?php if(check_permission('disable_user')): ?> <?php echo link_to("users/{$user->user_id}/update_status", ($user->user_status) ? trans('text.block'):trans('text.activate')); ?> <?php endif; ?></td>
+        </tr>
+        <?php endforeach; ?>
+          </tbody>
+        
+      </table>
+      <?php echo $users->appends(Request::except('page'))->links(); ?>
+
+      <?php else: ?>
+      <p><?php echo trans('text.no_user_added'); ?></p>
+      <?php endif; ?> </div>
+  </div>
+  <!-- END EXAMPLE TABLE PORTLET--> 
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
